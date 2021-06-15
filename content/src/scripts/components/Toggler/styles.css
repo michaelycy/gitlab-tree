@@ -1,0 +1,19 @@
+.spantree-toggler {
+  position: fixed;
+  padding: 4px 8px;
+  top: 40%;
+  transform: rotate(-90deg);
+  transform-origin: top left;
+  border-radius: 0px 0px 4px 4px;
+  cursor: pointer;
+  z-index: 10;
+  box-shadow: 0px 0px 5px #000000d9;
+  color: white;
+  background: rgb(77, 61, 146);
+}
+
+.spantree-toggler .right-icon {
+  transform: rotate(90deg) translate(2px, -2px);
+  -moz-transform: rotate(90deg) translate(2px, -2px);
+  -webkit-transform: rotate(90deg) translate(2px, -2px);
+}

@@ -1,0 +1,89 @@
+.spantree-tree-pane {
+  position: fixed;
+  display: flex;
+  box-sizing: border-box;
+  height: 100%;
+  right: 0px !important;
+  top: 0px !important;
+  bottom: 0px !important;
+  left: 0px !important;
+  font-size: 0.8em;
+  z-index: 1000;
+  transform: translate3d(0px, 0px, 0px);
+  transition: transform 0.2s ease 0s;
+  box-shadow: 2px 0px 8px #00000070;
+}
+
+.spantree-pane-main {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.spantree-pane-header {
+  /* background-color: rgb(77, 61, 146); */
+  border-bottom: 1px #404040 solid;
+  color: white;
+  /* padding: 5px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.spantree-close-button,
+.spantree-search-button {
+  cursor: pointer;
+  margin: 0 4px;
+}
+
+.spantree-close-button.pinned svg {
+  transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  -webkit-transform: rotate(-45deg);
+}
+
+.spantree-spread {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 8px;
+}
+
+.spantree-spread.branch-warp {
+  font-size: 12px;
+}
+
+.spantree-tree-body {
+  width: 100%;
+  flex: 1;
+  overflow-y: auto;
+  padding-top: 5px;
+}
+
+.spantree-tree-footer {
+  height: 30px;
+  line-height: 30px;
+  border-top: solid 1px #e5e5e5;
+  text-align: right;
+  padding: 0 5px;
+}
+
+.spantree-pane-details {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.spantree-pane-details svg {
+  transform: translateY(-1px);
+  font-size: 14px;
+}
+
+.spantree-pane-icons {
+  min-width: 35px;
+  font-size: 14px;
+  text-align: right;
+}
