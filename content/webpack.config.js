@@ -4,7 +4,7 @@ module.exports = {
   mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
   devtool: 'cheap-module-source-map',
 
-  entry: ['./content/src/scripts/index.js'],
+  entry: ['./content/src/scripts/index.jsx'],
 
   output: {
     filename: 'content.js',
@@ -26,9 +26,9 @@ module.exports = {
         include: path.join(__dirname, 'src'),
         use: {
           loader: 'babel-loader',
-          options: {
-            presets: ['es2015', 'react'],
-          },
+          // options: {
+          //   presets: ['es2015', 'react'],
+          // },
         },
       },
     ],

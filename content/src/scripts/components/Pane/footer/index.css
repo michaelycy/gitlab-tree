@@ -1,0 +1,23 @@
+.gitlab-tree-pane-footer {
+  line-height: 30px;
+
+  height: 30px;
+  padding: 0 5px;
+
+  text-align: right;
+
+  border-top: solid 1px #e5e5e5;
+}
+
+.gitlab-tree-close-button {
+  margin: 0 4px;
+
+  cursor: pointer;
+}
+
+/* .gitlab-tree-close-button.pinned svg {
+  -webkit-transform: rotate(-45deg);
+  -moz-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  transform: rotate(-45deg);
+} */

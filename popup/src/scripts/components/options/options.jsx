@@ -6,10 +6,11 @@ function Option({ id, value, label, type, handleChange }) {
   switch (type) {
     case 'CheckBox':
       return (
-        <label className='option'>
-          <div className='option-name'>{label}</div>
+        // eslint-disable-next-line jsx-a11y/label-has-associated-control
+        <label className="option">
+          <div className="option-name">{label}</div>
           <input
-            type='checkbox'
+            type="checkbox"
             value={label}
             checked={value}
             onChange={() => handleChange(id, !value)}
@@ -29,7 +30,7 @@ function Options({ options, optionList, changeOptions }) {
     });
   };
 
-  return optionList.map((option) => (
+  return optionList.map(option => (
     <Option
       id={option.keyName}
       value={option.keyName in options ? options[option.keyName] : option.defaultVal}

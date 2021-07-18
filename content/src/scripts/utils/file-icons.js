@@ -4395,7 +4395,7 @@ const fileIcons = () => {
     return match ? match.getClass(0) : getGenericTreeIcons(isTree);
   };
 
-  const getGenericTreeIcons = (isTree) => {
+  const getGenericTreeIcons = isTree => {
     return isTree
       ? isTree.isOpen
         ? 'folder-open-icon'

@@ -1,9 +1,9 @@
-import React from "react";
+import React from 'react';
 
-import "./styles.css";
+import './styles.css';
 
 function Loader({ size }) {
-  const dimInPixel = Number(size.replace(/[^0-9\.]+/g, ""));
+  const dimInPixel = Number(size.replace(/[^0-9.]+/g, ''));
 
   return (
     <div
@@ -13,7 +13,7 @@ function Loader({ size }) {
         height: size,
       }}
       className="spantree-loader"
-    ></div>
+    />
   );
 }
 

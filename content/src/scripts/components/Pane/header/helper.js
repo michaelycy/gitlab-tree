@@ -1,4 +1,5 @@
-const getHeaderStyles = (options) => {
+// eslint-disable-next-line import/prefer-default-export
+export const getHeaderStyles = options => {
   if ('auto-theme' in options && options['auto-theme']) {
     const header = {};
     const headerDom = document.querySelector('header');
@@ -24,5 +25,3 @@ const getHeaderStyles = (options) => {
 
   return {};
 };
-
-export default getHeaderStyles;

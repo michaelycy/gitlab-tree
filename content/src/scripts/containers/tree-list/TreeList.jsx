@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { connect } from 'react-redux';
 
-import Loader from '../../components/Loader';
-import TreeItem from '../../components/TreeItem';
+import Loader from '../../components/loader';
+import TreeItem from '../../components/tree-item';
 import { useURLDetails } from '../../hooks/useURLDetails';
 import { getInitialTree, openDir, closeDir } from '../../../../../event/src/actions/API';
 import { setClicked } from '../../../../../event/src/actions/UI';

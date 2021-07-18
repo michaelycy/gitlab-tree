@@ -1,4 +1,4 @@
-import { useRef, useEffect } from "react";
+import { useRef, useEffect } from 'react';
 
 function useEventListener(eventName, handler, element = window) {
   const savedHandler = useRef();
@@ -11,9 +11,10 @@ function useEventListener(eventName, handler, element = window) {
     const isSupported = element && element.addEventListener;
     if (!isSupported) return;
 
-    const eventListener = (event) => savedHandler.current(event);
+    const eventListener = event => savedHandler.current(event);
     element.addEventListener(eventName, eventListener);
 
+    // eslint-disable-next-line consistent-return
     return () => {
       element.removeEventListener(eventName, eventListener);
     };

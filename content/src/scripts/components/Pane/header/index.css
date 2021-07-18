@@ -1,0 +1,57 @@
+.gitlab-tree-pane-header {
+  display: flex;
+  flex-direction: column;
+
+  color: white;
+  border-bottom: 1px #404040 solid;
+
+  justify-content: space-around;
+}
+
+.gitlab-tree-spread {
+  display: flex;
+
+  padding: 0 8px;
+
+  justify-content: space-between;
+}
+
+.gitlab-tree-spread.branch-warp {
+  font-size: 12px;
+}
+
+.gitlab-tree-pane-details {
+  display: inline-block;
+  overflow: hidden;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.gitlab-tree-pane-details svg {
+  font-size: 14px;
+
+  transform: translateY(-1px);
+}
+
+
+.gitlab-tree-pane-icons {
+  font-size: 14px;
+
+  min-width: 35px;
+
+  text-align: right;
+}
+
+.gitlab-tree-close-button, .gitlab-tree-search-button {
+  margin: 0 4px;
+
+  cursor: pointer;
+}
+
+.gitlab-tree-close-button.pinned svg {
+  -webkit-transform: rotate(-45deg);
+     -moz-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+          transform: rotate(-45deg);
+}

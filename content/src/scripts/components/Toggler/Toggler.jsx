@@ -3,11 +3,11 @@ import RightSvg from '../../svgs/Right';
 
 import './styles.css';
 
-function Toggle({ pinned, handleClick }) {
+function Toggle({ handleClick }) {
   return (
-    <div className='spantree-toggler' onClick={handleClick}>
+    <div className="spantree-toggler" onClick={handleClick}>
       Gitlab-Tree
-      <RightSvg className='right-icon' />
+      <RightSvg className="right-icon" />
     </div>
   );
 }

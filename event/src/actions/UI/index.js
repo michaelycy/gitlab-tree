@@ -1,4 +1,5 @@
 import * as types from '../../types/UI';
+// eslint-disable-next-line import/no-cycle
 import store from '../../../../content/src/scripts';
 
 export const togglePinned = () => {
@@ -7,21 +8,21 @@ export const togglePinned = () => {
   });
 };
 
-export const toggleOpened = (reducerDetails) => {
+export const toggleOpened = reducerDetails => {
   store.dispatch({
     type: types.TOGGLE_OPENED,
     reducerDetails,
   });
 };
 
-export const setWidth = (width) => {
+export const setWidth = width => {
   store.dispatch({
     type: types.SET_WIDTH,
     payload: width,
   });
 };
 
-export const setClicked = (clicked) => {
+export const setClicked = clicked => {
   store.dispatch({
     type: types.SET_CLICKED,
     payload: clicked,

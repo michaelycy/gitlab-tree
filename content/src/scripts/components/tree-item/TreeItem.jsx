@@ -1,7 +1,6 @@
 import React, { useEffect, useState, useContext } from 'react';
-
+import classnames from 'classnames';
 import { OptionsContext } from '../../contexts/OptionsContext';
-import { fetchURLDetails } from '../../utils/url';
 import { useURLDetails } from '../../hooks/useURLDetails';
 import fileIcons from '../../utils/file-icons';
 
@@ -51,7 +50,7 @@ function TreeItem({
   const tryTreeItemActiveBeforeReload = () => {
     let isItemActive = false;
     if (remainingURL.length !== 0) {
-      let activeIconName = remainingURL.split('/')[0];
+      const activeIconName = remainingURL.split('/')[0];
       let urlRemaining = remainingURL.substring(activeIconName.length + 1);
 
       if (decodeURIComponent(activeIconName) === name) {
@@ -69,16 +68,15 @@ function TreeItem({
         urlRemaining = '';
       }
       return { urlRemaining, isItemActive };
-    } else {
-      return { urlRemaining: '', isItemActive };
     }
+    return { urlRemaining: '', isItemActive };
   };
 
   const tryTreeItemActiveAfterReload = () => {
     let isItemActive = false;
 
     if (remainingURL.length !== 0) {
-      let activeIconName = remainingURL.split('/')[0];
+      const activeIconName = remainingURL.split('/')[0];
       let urlRemaining = remainingURL.substring(activeIconName.length + 1);
 
       if (decodeURIComponent(activeIconName) === name) {
@@ -89,9 +87,8 @@ function TreeItem({
         urlRemaining = '';
       }
       return { urlRemaining, isItemActive };
-    } else {
-      return { urlRemaining: '', isItemActive };
     }
+    return { urlRemaining: '', isItemActive };
   };
 
   let treeItemActive = null;
@@ -105,7 +102,7 @@ function TreeItem({
     if (treeItemActive.isItemActive) {
       setOpening(true);
     }
-  }, []);
+  }, [treeItemActive.isItemActive]);
 
   useEffect(() => {
     if (opening && scrolling) {
@@ -119,7 +116,7 @@ function TreeItem({
         setScrolling(false);
       }
     }
-  }, [opening]);
+  }, [opening, scrolling, setScrolling, treeItemActive.isItemActive]);
 
   return (
     <li>
@@ -127,43 +124,43 @@ function TreeItem({
         className={opening ? 'spantree-tree-element opening' : 'spantree-tree-element'}
         onClick={handleClick}>
         <div
-          className={
-            treeItemActive.isItemActive
-              ? 'spantree-full-width-row spantree-active-row'
-              : 'spantree-full-width-row'
-          }></div>
-        <div className='spantree-tree-icon'>
+          className={classnames('spantree-full-width-row', {
+            'spantree-active-row': treeItemActive.isItemActive,
+          })}
+        />
+        <div className="spantree-tree-icon">
           {isTree ? (
-            isTree.isOpen ? (
-              <i className='tree-arrow-down-icon spantree-arrow' />
-            ) : (
-              <i className='tree-arrow-right-icon spantree-arrow' />
-            )
+            <i
+              className={classnames('spantree-arrow', {
+                'tree-arrow-down-icon': isTree.isOpen,
+                'tree-arrow-right-icon': !isTree.isOpen,
+              })}
+            />
           ) : null}
         </div>
-        <div className='spantree-file-icon'>
+        <div className="spantree-file-icon">
           <i className={fileIcons.getClassWithColor(name, isTree)} />
         </div>
-        <div className='spantree-item-name'>{name}</div>
+        <div className="spantree-item-name">{name}</div>
       </div>
       {isTree && isTree.isOpen && (
-        <ul className='spantree-child-list'>
-          {Object.keys(children).map((key) => (
+        <ul className="spantree-child-list">
+          {Object.keys(children).map(key => (
             <TreeItem
               key={key}
               width={width}
               name={children[key].name}
               isTree={children[key].isTree}
               path={children[key].path}
-              children={children[key].children}
               open={open}
               close={close}
               remainingURL={treeItemActive.urlRemaining}
               onRenderingChange={onRenderingChange}
               setClicked={setClicked}
               scrolling={scrolling}
-              setScrolling={setScrolling}
-            />
+              setScrolling={setScrolling}>
+              {children[key].children}
+            </TreeItem>
           ))}
         </ul>
       )}

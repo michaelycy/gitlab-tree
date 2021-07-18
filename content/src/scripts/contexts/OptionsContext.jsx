@@ -5,10 +5,10 @@ const OptionsContext = createContext({
   options: {},
 });
 
-function OptionsProvider({ children, options, theme }) {
+function OptionsProvider({ children, options }) {
   const defaultOptions = { 'auto-theme': true, 'compatibility-mode': true };
 
-  Object.keys(defaultOptions).forEach((key) => {
+  Object.keys(defaultOptions).forEach(key => {
     if (key in options) {
       defaultOptions[key] = options[key];
     }
@@ -24,11 +24,9 @@ function OptionsProvider({ children, options, theme }) {
   );
 }
 
-const mapStateToProps = (state) => {
-  return {
-    options: state.options,
-  };
-};
+const mapStateToProps = state => ({
+  options: state.options,
+});
 
 const mapDispatchToProps = {};
 

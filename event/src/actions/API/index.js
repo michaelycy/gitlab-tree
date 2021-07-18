@@ -14,14 +14,14 @@ export const getInitialTree = (id, params, reducerDetails) => {
 
   axios
     .get(url)
-    .then((res) => {
+    .then(res => {
       store.dispatch({
         type: types.FETCH_TREE,
         payload: res.data,
         reducerDetails,
       });
     })
-    .catch((_err) => {});
+    .catch(_err => {});
 };
 
 export const openDir = (id, path, params, reducerDetails) => {
@@ -39,14 +39,14 @@ export const openDir = (id, path, params, reducerDetails) => {
 
   axios
     .get(url)
-    .then((res) => {
+    .then(res => {
       store.dispatch({
         type: types.UPDATE_TREE,
         payload: res.data,
         reducerDetails,
       });
     })
-    .catch((_err) => {});
+    .catch(_err => {});
 };
 
 export const closeDir = (path, reducerDetails) => {
@@ -57,7 +57,7 @@ export const closeDir = (path, reducerDetails) => {
   });
 };
 
-export const getSearchTerms = (reducerDetails) => {
+export const getSearchTerms = reducerDetails => {
   let url = `${window.location.origin}/${reducerDetails.repoName}/`;
   if (!reducerDetails.compatibilityMode) {
     url += '-/';
@@ -66,12 +66,12 @@ export const getSearchTerms = (reducerDetails) => {
 
   axiosOriginal
     .get(url)
-    .then((res) => {
+    .then(res => {
       store.dispatch({
         type: types.FETCH_SEARCH_TERMS,
         payload: res.data,
         reducerDetails,
       });
     })
-    .catch((_err) => {});
+    .catch(_err => {});
 };

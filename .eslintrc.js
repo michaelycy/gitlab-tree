@@ -1,0 +1,25 @@
+module.exports = {
+  extends: ['airbnb', 'airbnb/hooks'],
+  globals: {
+    document: true,
+    localStorage: true,
+    window: true,
+    chrome: true,
+    self: true,
+  },
+  rules: {
+    'comma-dangle': 'off',
+    'no-plusplus': 'off',
+    'no-param-reassign': 'off',
+    'jsx-quotes': 'off',
+    'operator-linebreak': 'off',
+    'react/prop-types': 'off',
+    'arrow-parens': 'off',
+    'object-curly-newline': 'off',
+    'implicit-arrow-linebreak': 'off',
+    'react/jsx-fragments': 'off',
+    'jsx-a11y/click-events-have-key-events': 'off',
+    'jsx-a11y/no-static-element-interactions': 'off',
+    'react/jsx-closing-bracket-location': 'off',
+  },
+};

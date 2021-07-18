@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import produce from 'immer';
 
 import { FETCH_TREE, OPEN_DIR, CLOSE_DIR, UPDATE_TREE } from '../../types/API';
@@ -10,19 +11,12 @@ export default (state = initialState, action) => {
       return {
         ...state,
         [action.reducerDetails.tabId]: action.payload
-          .map((node) => {
-            return {
-              name: node.name,
-              path: node.path.split('/').filter((pathSub) => pathSub.length !== 0),
-              isTree:
-                node.type === 'tree'
-                  ? {
-                      isOpen: false,
-                    }
-                  : false,
-              children: node.type === 'tree' ? {} : undefined,
-            };
-          })
+          .map(node => ({
+            name: node.name,
+            path: node.path.split('/').filter(pathSub => pathSub.length !== 0),
+            isTree: node.type === 'tree' ? { isOpen: false } : false,
+            children: node.type === 'tree' ? {} : undefined,
+          }))
           .reduce((map, obj) => {
             map[obj.name] = obj;
             return map;
@@ -40,7 +34,7 @@ export default (state = initialState, action) => {
       objectPath = [...objectPath, 'isTree', 'isOpen'];
       let propName = objectPath.pop();
 
-      let nextState = produce(state, (draft) => {
+      let nextState = produce(state, draft => {
         draft = objectPath.reduce((it, prop) => it[prop], draft);
         draft[propName] = true;
       });
@@ -58,28 +52,21 @@ export default (state = initialState, action) => {
       propName = objectPath.pop();
 
       const children = action.payload
-        .map((node) => {
-          return {
-            name: node.name,
-            path: node.path.split('/').filter((pathSub) => pathSub.length !== 0),
-            isTree:
-              node.type === 'tree'
-                ? {
-                    isOpen: false,
-                  }
-                : false,
-            children: node.type === 'tree' ? {} : undefined,
-          };
-        })
+        .map(node => ({
+          name: node.name,
+          path: node.path.split('/').filter(pathSub => pathSub.length !== 0),
+          isTree: node.type === 'tree' ? { isOpen: false } : false,
+          children: node.type === 'tree' ? {} : undefined,
+        }))
         .reduce((map, obj) => {
           map[obj.name] = obj;
           return map;
         }, {});
 
-      nextState = produce(state, (draft) => {
+      nextState = produce(state, draft => {
         draft = objectPath.reduce((it, prop) => it[prop], draft);
-        if (Object.keys(draft[propName]['children']) <= 0) {
-          draft[propName]['children'] = children;
+        if (Object.keys(draft[propName].children) <= 0) {
+          draft[propName].children = children;
         }
       });
       return nextState;
@@ -94,10 +81,9 @@ export default (state = initialState, action) => {
       }
 
       propName = objectPath.pop();
-      nextState = produce(state, (draft) => {
+      nextState = produce(state, draft => {
         draft = objectPath.reduce((it, prop) => it[prop], draft);
-        draft[propName]['isTree']['isOpen'] = false;
-        // draft[propName]["children"] = {};
+        draft[propName].isTree.isOpen = false;
       });
       return nextState;
 

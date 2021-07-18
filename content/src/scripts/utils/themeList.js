@@ -1,38 +1,38 @@
+import { EXTENSION_ID, GITLAB_TREE_THEME_LIST } from '../constants';
 import { browserKey } from './browser';
 
+const insertCSS = isDisabled => {
+  // Insert CSS into Head
+  const darkGitlab = document.createElement('link');
+  darkGitlab.id = 'gitlab-tree-theme';
+  darkGitlab.disabled = isDisabled;
+  darkGitlab.rel = 'stylesheet';
+  darkGitlab.type = 'text/css';
+  darkGitlab.href = `${browserKey()}-extension://${EXTENSION_ID}/libs/gitlab-dark.css`;
+  document.querySelector('head').appendChild(darkGitlab);
+};
+
+// eslint-disable-next-line import/prefer-default-export
 export const switchTheme = () => {
-  const domain = location.origin;
-  let themeList = JSON.parse(localStorage.getItem('spantree-themelist')) || {};
+  const domain = window.location.origin;
+  const themeList = JSON.parse(localStorage.getItem(GITLAB_TREE_THEME_LIST)) || {};
 
   if (domain in themeList) {
     const alteredValue = !themeList[domain];
     themeList[domain] = alteredValue;
-    if (document.getElementById('spantree-theme') === null) {
+    if (document.getElementById('gitlab-tree-theme') === null) {
       insertCSS(!alteredValue);
     } else {
-      document.getElementById('spantree-theme').disabled = !alteredValue;
+      document.getElementById('gitlab-tree-theme').disabled = !alteredValue;
     }
   } else {
     themeList[domain] = true;
-    if (document.getElementById('spantree-theme') === null) {
+    if (document.getElementById('gitlab-tree-theme') === null) {
       insertCSS(false);
     } else {
-      document.getElementById('spantree-theme').disabled = false;
+      document.getElementById('gitlab-tree-theme').disabled = false;
     }
   }
 
-  localStorage.setItem('spantree-themelist', JSON.stringify(themeList));
-};
-
-const insertCSS = (isDisabled) => {
-  // Insert CSS into Head
-  const darkGitlab = document.createElement('link');
-  darkGitlab.id = 'spantree-theme';
-  darkGitlab.disabled = isDisabled;
-  darkGitlab.rel = 'stylesheet';
-  darkGitlab.type = 'text/css';
-  darkGitlab.href = `${browserKey()}-extension://${chrome.i18n.getMessage(
-    '@@extension_id'
-  )}/libs/gitlab-dark.css`;
-  document.querySelector('head').appendChild(darkGitlab);
+  localStorage.setItem(GITLAB_TREE_THEME_LIST, JSON.stringify(themeList));
 };

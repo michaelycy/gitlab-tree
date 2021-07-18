@@ -1,16 +1,17 @@
+// eslint-disable-next-line import/prefer-default-export
 export const fetchURLDetails = () => {
   const pathName = window.location.pathname;
-  const pathNameSplit = pathName.split('/').filter((pathSub) => pathSub.length !== 0);
+  const pathNameSplit = pathName.split('/').filter(pathSub => pathSub.length !== 0);
   const dir = [];
   // 获取当前页面分支名称
   const branchName = document.querySelector('.dropdown-toggle-text')
     ? document.querySelector('.dropdown-toggle-text').innerText
     : 'master';
 
-  let branchNameSplit = branchName.split('/').filter((pathSub) => pathSub.length !== 0);
+  const branchNameSplit = branchName.split('/').filter(pathSub => pathSub.length !== 0);
   let branchFound = false;
   let findingBranch = false;
-  let baseRemovedURLItems = [];
+  const baseRemovedURLItems = [];
 
   for (let i = 0; i < pathNameSplit.length; i++) {
     if (findingBranch) {
@@ -19,21 +20,19 @@ export const fetchURLDetails = () => {
         branchFound = true;
       }
       baseRemovedURLItems.push(pathNameSplit[i]);
+    } else if (pathNameSplit[i] === '-') {
+      i++;
+      findingBranch = true;
+    } else if (
+      pathNameSplit[i] === 'blob' ||
+      pathNameSplit[i] === 'tree' ||
+      pathNameSplit[i] === 'blame' ||
+      pathNameSplit[i] === 'commits' ||
+      pathNameSplit[i] === 'find_file'
+    ) {
+      findingBranch = true;
     } else {
-      if (pathNameSplit[i] === '-') {
-        i++;
-        findingBranch = true;
-      } else if (
-        pathNameSplit[i] === 'blob' ||
-        pathNameSplit[i] === 'tree' ||
-        pathNameSplit[i] === 'blame' ||
-        pathNameSplit[i] === 'commits' ||
-        pathNameSplit[i] === 'find_file'
-      ) {
-        findingBranch = true;
-      } else {
-        dir.push(pathNameSplit[i]);
-      }
+      dir.push(pathNameSplit[i]);
     }
   }
   const dirFormatted = dir.join('/');
@@ -41,10 +40,10 @@ export const fetchURLDetails = () => {
 
   return {
     dir,
-    dirFormatted: dirFormatted,
+    dirFormatted,
     dirURLParam: encodeURIComponent(dir.join('/')),
     branchName,
     branchNameURL: encodeURIComponent(branchName),
-    baseRemovedURL: baseRemovedURL,
+    baseRemovedURL,
   };
 };

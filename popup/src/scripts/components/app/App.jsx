@@ -10,13 +10,13 @@ class App extends Component {
     super(props);
     this.optionList = [
       {
-        name: 'Compatibility Mode',
+        name: '兼容模式',
         keyName: 'compatibility-mode',
         type: 'CheckBox',
         defaultVal: true,
       },
       {
-        name: 'Auto Theme',
+        name: '自动模式',
         keyName: 'auto-theme',
         type: 'CheckBox',
         defaultVal: false,
@@ -25,14 +25,15 @@ class App extends Component {
   }
 
   render() {
+    const { options, dispatch } = this.props;
     return (
-      <div className='spantree-popup'>
-        <div className='spantree-options-heading'>Gitlab Tree Options</div>
+      <div className="gitlab-tree-popup">
+        <div className="gitlab-tree-options-heading">Gitlab Tree Options</div>
         <Options
-          options={this.props.options}
+          options={options}
           optionList={this.optionList}
-          changeOptions={(newOptions) => {
-            this.props.dispatch({
+          changeOptions={newOptions => {
+            dispatch({
               type: 'OPTIONS_CHANGED',
               payload: newOptions,
             });
@@ -43,10 +44,8 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    options: state.options,
-  };
-};
+const mapStateToProps = state => ({
+  options: state.options,
+});
 
 export default connect(mapStateToProps)(App);

@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback, Fragment } from "react";
 import { connect } from "react-redux";
 
-import Backdrop from "../../components/Backdrop";
+import Backdrop from "../../components/backdrop";
 import SearchBarResult from "./SearchBarResult";
 import { getSearchTerms } from "../../../../../event/src/actions/API";
 import { fetchURLDetails } from "../../utils/url";

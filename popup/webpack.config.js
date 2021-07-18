@@ -1,34 +1,34 @@
-const path = require("path");
+const path = require('path');
 
 module.exports = {
-  mode: process.env.NODE_ENV === "production" ? "production" : "development",
-  devtool: "cheap-module-source-map",
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  devtool: 'cheap-module-source-map',
 
-  entry: ["./popup/src/scripts/index.js"],
+  entry: ['./popup/src/scripts/index.jsx'],
 
   output: {
-    filename: "popup.js",
-    path: path.join(__dirname, "../", "build"),
-    publicPath: "/",
+    filename: 'popup.js',
+    path: path.join(__dirname, '../', 'build'),
+    publicPath: '/',
   },
 
   resolve: {
-    extensions: [".js", ".jsx", ".css", ".json"],
-    modules: ["node_modules"],
+    extensions: ['.js', '.jsx', '.css', '.json'],
+    modules: ['node_modules'],
   },
 
   module: {
     rules: [
-      { test: /\.css$/, use: ["style-loader", "css-loader"] },
+      { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
         test: /\.(jsx|js)?$/,
         exclude: /(node_modules)/,
-        include: path.join(__dirname, "src"),
+        include: path.join(__dirname, 'src'),
         use: {
-          loader: "babel-loader",
-          options: {
-            presets: ["es2015", "react"],
-          },
+          loader: 'babel-loader',
+          // options: {
+          //   presets: ['es2015', 'react'],
+          // },
         },
       },
     ],
