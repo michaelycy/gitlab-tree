@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Gitlab Tree",
-  "description": "Tree for Gitlab",
+  "description": "树形结构 for Gitlab",
   "version": "0.0.2",
   "background": {
     "scripts": ["event.js"]

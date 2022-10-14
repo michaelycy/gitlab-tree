@@ -37,7 +37,7 @@ const isFirefox = () => {
   return match !== null;
 };
 
-// eslint-disable-next-line import/prefer-default-export
+
 const browserKey = () => {
   if (isChrome()) return 'chrome';
   if (isFirefox()) return 'moz';

@@ -1,9 +1,7 @@
 import axios from 'axios';
 
-const options = {
+const request = axios.create({
   baseURL: `${window.location.origin}/api/v4/projects/`,
-};
+});
 
-const inst = axios.create(options);
-
-export default inst;
+export default request;

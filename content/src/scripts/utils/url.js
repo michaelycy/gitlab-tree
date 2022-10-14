@@ -1,4 +1,3 @@
-// eslint-disable-next-line import/prefer-default-export
 export const fetchURLDetails = () => {
   const pathName = window.location.pathname;
   const pathNameSplit = pathName.split('/').filter(pathSub => pathSub.length !== 0);
@@ -45,5 +44,6 @@ export const fetchURLDetails = () => {
     branchName,
     branchNameURL: encodeURIComponent(branchName),
     baseRemovedURL,
+    warehouse: dir[dir.length - 1],
   };
 };

@@ -15,10 +15,7 @@ function OptionsProvider({ children, options }) {
   });
 
   return (
-    <OptionsContext.Provider
-      value={{
-        options: defaultOptions,
-      }}>
+    <OptionsContext.Provider value={{ options: defaultOptions }}>
       {children}
     </OptionsContext.Provider>
   );

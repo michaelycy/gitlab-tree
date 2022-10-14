@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 
 import Loader from '../../components/loader';
 import TreeItem from '../../components/tree-item';
-import { useURLDetails } from '../../hooks/useURLDetails';
+import { useURLDetails } from '../../hooks/use-url-details';
 import { getInitialTree, openDir, closeDir } from '../../../../../event/src/actions/API';
 import { setClicked } from '../../../../../event/src/actions/UI';
 
@@ -50,9 +50,7 @@ function TreeList({
     if (shouldGetTree()) {
       getInitialTree(
         URLDetails.dirURLParam,
-        {
-          ref: URLDetails.branchNameURL,
-        },
+        { ref: URLDetails.branchNameURL },
         {
           repoName: URLDetails.dirFormatted,
           branchName: URLDetails.branchName,
@@ -62,7 +60,7 @@ function TreeList({
     }
     setFirstPageLoad(false);
   }, []);
-
+  console.log(URLDetails.warehouse);
   useEffect(() => {
     if (initialMount.current && shouldGetTree()) {
       initialMount.current = false;
@@ -73,12 +71,12 @@ function TreeList({
 
   if (loading)
     return (
-      <div className='spantree-loader-wrapper'>
-        <Loader size='64px' />
+      <div className="spantree-loader-wrapper">
+        <Loader size="64px" />
       </div>
     );
 
-  const closeDirectory = (path) => {
+  const closeDirectory = path => {
     closeDir(path, {
       repoName: URLDetails.dirFormatted,
       branchName: URLDetails.branchName,
@@ -86,7 +84,7 @@ function TreeList({
     });
   };
 
-  const openDirectory = (path) => {
+  const openDirectory = path => {
     openDir(
       URLDetails.dirURLParam,
       path,
@@ -103,15 +101,15 @@ function TreeList({
     );
   };
 
-  const onRenderingChange = (renderState) => {
+  const onRenderingChange = renderState => {
     setRendering(renderState);
   };
 
   const treeItem = tree[tabId];
   return (
-    <div className='spantree-tree-list'>
-      <ul className='spantree-parent-list'>
-        {Object.keys(treeItem).map((key) => (
+    <div className="spantree-tree-list">
+      <ul className="spantree-parent-list">
+        {Object.keys(treeItem).map(key => (
           <TreeItem
             width={width}
             key={key}
@@ -133,7 +131,7 @@ function TreeList({
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     tree: state.tree,
     width: state.width,

@@ -5,15 +5,10 @@ import store from '../../../../content/src/scripts';
 import axios from '../../../axios';
 
 export const getInitialTree = (id, params, reducerDetails) => {
-  let url = `${id}/repository/tree`;
-  url += '?per_page=10000';
-
-  for (let param in params) {
-    url += `&${param}=${params[param]}`;
-  }
+  const url = `${id}/repository/tree`;
 
   axios
-    .get(url)
+    .get(url, { params: { ...params, per_page: 10000 } })
     .then(res => {
       store.dispatch({
         type: types.FETCH_TREE,
@@ -31,14 +26,10 @@ export const openDir = (id, path, params, reducerDetails) => {
     reducerDetails,
   });
 
-  let url = `${id}/repository/tree?per_page=10000`;
-
-  for (let param in params) {
-    url += `&${param}=${params[param]}`;
-  }
+  const url = `${id}/repository/tree?per_page=10000`;
 
   axios
-    .get(url)
+    .get(url, { params: { ...params, per_page: 10000 } })
     .then(res => {
       store.dispatch({
         type: types.UPDATE_TREE,

@@ -1,4 +1,4 @@
-// eslint-disable-next-line import/prefer-default-export
+
 export function throttle(func, wait, options) {
   let context;
   let args;

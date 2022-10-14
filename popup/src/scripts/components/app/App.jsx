@@ -8,6 +8,7 @@ import './styles.css';
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.optionList = [
       {
         name: '兼容模式',
@@ -28,24 +29,17 @@ class App extends Component {
     const { options, dispatch } = this.props;
     return (
       <div className="gitlab-tree-popup">
-        <div className="gitlab-tree-options-heading">Gitlab Tree Options</div>
+        <div className="gitlab-tree-options-heading">Options</div>
         <Options
           options={options}
           optionList={this.optionList}
-          changeOptions={newOptions => {
-            dispatch({
-              type: 'OPTIONS_CHANGED',
-              payload: newOptions,
-            });
-          }}
+          changeOptions={payload => dispatch({ type: 'OPTIONS_CHANGED', payload })}
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = state => ({
-  options: state.options,
-});
+const mapStateToProps = state => ({ options: state.options });
 
 export default connect(mapStateToProps)(App);

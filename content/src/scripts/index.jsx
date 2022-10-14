@@ -5,10 +5,11 @@ import { Store } from 'webext-redux';
 
 // eslint-disable-next-line import/no-cycle
 import App from './containers/app';
-import { OptionsProvider } from './contexts/OptionsContext';
+import { OptionsProvider } from './contexts/options-context';
 import './rewrite.css';
 
 const proxyStore = new Store();
+
 const anchor = document.createElement('div');
 anchor.id = 'rcr-anchor';
 
@@ -19,8 +20,8 @@ if (document.querySelector('.layout-page') !== null) {
 
   proxyStore
     .ready()
-    .then(() => {
-      // 挂载 tree 型插件
+    // 挂载 tree 型插件
+    .then(() =>
       ReactDOM.render(
         <Provider store={proxyStore}>
           <OptionsProvider>
@@ -28,11 +29,10 @@ if (document.querySelector('.layout-page') !== null) {
           </OptionsProvider>
         </Provider>,
         document.getElementById('rcr-anchor')
-      );
-    })
+      )
+    )
     .catch(err => {
       throw new Error(err);
     });
 }
-
 export default proxyStore;

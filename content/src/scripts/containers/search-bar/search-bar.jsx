@@ -1,13 +1,13 @@
-import React, { useState, useEffect, useCallback, Fragment } from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect, useCallback, Fragment } from 'react';
+import { connect } from 'react-redux';
 
-import Backdrop from "../../components/backdrop";
-import SearchBarResult from "./SearchBarResult";
-import { getSearchTerms } from "../../../../../event/src/actions/API";
-import { fetchURLDetails } from "../../utils/url";
-import useEventListener from "../../utils/useEventListener";
+import Backdrop from '../../components/backdrop';
+import SearchBarResult from './search-bar-result';
+import { getSearchTerms } from '../../../../../event/src/actions/API';
+import { fetchURLDetails } from '../../utils/url';
+import useEventListener from '../../utils/useEventListener';
 
-import "./styles.css";
+import './styles.css';
 
 function SearchBar({
   worker,
@@ -18,13 +18,13 @@ function SearchBar({
   options,
 }) {
   const [searchResults, setSearchResults] = useState([]);
-  const [searchFor, setSearchFor] = useState("");
+  const [searchFor, setSearchFor] = useState('');
   const [activeResult, setActiveResult] = useState(0);
   const [resultsLoading, setResultsLoading] = useState(0);
   const [debounceTimerId, setDebounceTimerId] = useState(null);
 
-  const defaultOptions = { "auto-theme": false, "compatibility-mode": true };
-  Object.keys(defaultOptions).forEach((key) => {
+  const defaultOptions = { 'auto-theme': false, 'compatibility-mode': true };
+  Object.keys(defaultOptions).forEach(key => {
     if (key in options) {
       defaultOptions[key] = options[key];
     }
@@ -36,23 +36,19 @@ function SearchBar({
       repoName: URLDetails.dirFormatted,
       branchName: URLDetails.branchName,
       compatibilityMode:
-        "compatibility-mode" in defaultOptions &&
-        defaultOptions["compatibility-mode"],
+        'compatibility-mode' in defaultOptions && defaultOptions['compatibility-mode'],
     });
-    worker.addEventListener("message", (event) => {
+    worker.addEventListener('message', event => {
       const searchResultsFromWorker = event.data;
       setSearchResults(searchResultsFromWorker);
-      setResultsLoading((resultsLoading) => resultsLoading - 1);
+      setResultsLoading(resultsLoading => resultsLoading - 1);
     });
   }, []);
 
   const handleRedirect = (id, inNewTab) => {
     const URLDetails = fetchURLDetails();
     let finalURL = null;
-    if (
-      "compatibility-mode" in defaultOptions &&
-      defaultOptions["compatibility-mode"]
-    ) {
+    if ('compatibility-mode' in defaultOptions && defaultOptions['compatibility-mode']) {
       finalURL = `${window.location.origin}/${URLDetails.dirFormatted}/blob/${
         URLDetails.branchName
       }/${encodeURI(searchResults[id])}`;
@@ -62,7 +58,7 @@ function SearchBar({
       }/${encodeURI(searchResults[id])}`;
     }
     if (inNewTab) {
-      window.open(finalURL, "_blank");
+      window.open(finalURL, '_blank');
       // for overwriting default behavior on Firefox
       window.focus();
     } else {
@@ -71,70 +67,65 @@ function SearchBar({
   };
 
   const handleKeyDown = useCallback(
-    (event) => {
+    event => {
       const isActionKey = isMac ? event.metaKey : event.ctrlKey;
-      if (isActionKey && (event.key === "p" || event.key === "P")) {
+      if (isActionKey && (event.key === 'p' || event.key === 'P')) {
         event.preventDefault();
         setShowSearchBar(true);
-      } else if (isActionKey && event.key === "Enter" && showSearchBar) {
+      } else if (isActionKey && event.key === 'Enter' && showSearchBar) {
         handleRedirect(activeResult, true);
-      } else if (event.key === "Enter" && showSearchBar) {
+      } else if (event.key === 'Enter' && showSearchBar) {
         handleRedirect(activeResult, false);
-      } else if (event.key === "ArrowUp" && showSearchBar) {
+      } else if (event.key === 'ArrowUp' && showSearchBar) {
         event.preventDefault();
         setActiveResult(
-          (activeResult) =>
-            (searchResults.length + activeResult - 1) % searchResults.length,
+          activeResult => (searchResults.length + activeResult - 1) % searchResults.length
         );
-      } else if (event.key === "ArrowDown" && showSearchBar) {
+      } else if (event.key === 'ArrowDown' && showSearchBar) {
         event.preventDefault();
-        setActiveResult(
-          (activeResult) => (activeResult + 1) % searchResults.length,
-        );
-      } else if (event.key === "Escape" && showSearchBar) {
+        setActiveResult(activeResult => (activeResult + 1) % searchResults.length);
+      } else if (event.key === 'Escape' && showSearchBar) {
         setShowSearchBar(false);
       }
     },
-    [showSearchBar, activeResult, searchResults],
+    [showSearchBar, activeResult, searchResults]
   );
 
-  useEventListener("keydown", handleKeyDown);
+  useEventListener('keydown', handleKeyDown);
 
   useEffect(() => {
-    setResultsLoading((resultsLoading) => resultsLoading + 1);
+    setResultsLoading(resultsLoading => resultsLoading + 1);
     workerCall();
   }, [searchTerms]);
 
   useEffect(() => {
     setActiveResult(0);
     debouncedWorkerCall();
-  }, [searchFor.replace(/ /g, "")]);
+  }, [searchFor.replace(/ /g, '')]);
 
   useEffect(() => {
-    const activeItem = document.querySelector(".spantree-result-active");
+    const activeItem = document.querySelector('.spantree-result-active');
     if (activeItem) {
       activeItem.scrollIntoView({
-        behavior: "auto", // Defines the transition animation.
-        block: "nearest", // Defines vertical alignment.
-        inline: "start", // Defines horizontal alignment.
+        behavior: 'auto', // Defines the transition animation.
+        block: 'nearest', // Defines vertical alignment.
+        inline: 'start', // Defines horizontal alignment.
       });
     }
   }, [activeResult]);
 
-  const isMac = ["Macintosh", "MacIntel", "MacPPC", "Mac68K"].reduce(
+  const isMac = ['Macintosh', 'MacIntel', 'MacPPC', 'Mac68K'].reduce(
     (accumulator, currentValue) => {
-      return (
-        window.navigator.platform.indexOf(currentValue) !== -1 || accumulator
-      );
+      return window.navigator.platform.indexOf(currentValue) !== -1 || accumulator;
     },
-    false,
+    false
   );
 
   const workerCall = () => {
     worker.postMessage({
       searchTerms: searchTerms,
       URLDetails: fetchURLDetails(),
-      query: searchFor.replace(/ /g, ""),
+      query: searchFor.replace(/ /g, ''),
     });
   };
 
@@ -142,14 +133,14 @@ function SearchBar({
     if (debounceTimerId) {
       clearTimeout(debounceTimerId);
     } else {
-      setResultsLoading((resultsLoading) => resultsLoading + 1);
+      setResultsLoading(resultsLoading => resultsLoading + 1);
     }
 
     setDebounceTimerId(
       setTimeout(() => {
         workerCall();
         setDebounceTimerId(null);
-      }, 500),
+      }, 500)
     );
   };
 
@@ -157,33 +148,29 @@ function SearchBar({
 
   return (
     <Fragment>
-      <Backdrop
-        showSearchBar={showSearchBar}
-        setShowSearchBar={setShowSearchBar}
-      />
+      <Backdrop showSearchBar={showSearchBar} setShowSearchBar={setShowSearchBar} />
       <div className="spantree-search">
         <div className="spantree-search-bar">
           <input
             type="text"
             value={searchFor}
             placeholder="🔍  Search in Repository Branch"
-            onChange={(e) => setSearchFor(e.target.value)}
+            onChange={e => setSearchFor(e.target.value)}
             autoFocus
           />
         </div>
         <div
           className={
             resultsLoading <= 0
-              ? "spantree-search-results"
-              : "spantree-search-results  spantree-results-loading"
-          }
-        >
+              ? 'spantree-search-results'
+              : 'spantree-search-results  spantree-results-loading'
+          }>
           {searchResults.map((resultTerm, index) => {
             return (
               <SearchBarResult
                 key={index}
                 index={index}
-                query={searchFor.replace(/ /g, "")}
+                query={searchFor.replace(/ /g, '')}
                 term={resultTerm}
                 activeResult={activeResult}
                 setActiveResult={setActiveResult}
@@ -196,27 +183,18 @@ function SearchBar({
         <div className="spantree-search-help">
           <span className="spantree-search-help-item">
             <code>
-              {isMac ? (
-                <span className="spantree-search-help-item-icon">⌘</span>
-              ) : (
-                "Ctrl"
-              )}{" "}
-              + P
-            </code>{" "}
+              {isMac ? <span className="spantree-search-help-item-icon">⌘</span> : 'Ctrl'} + P
+            </code>{' '}
             to Search
           </span>
           <span className="spantree-search-help-item">
-            <code>{isMac ? "return" : "Enter"}</code> to Open
+            <code>{isMac ? 'return' : 'Enter'}</code> to Open
           </span>
           <span className="spantree-search-help-item">
             <code>
-              {isMac ? (
-                <span className="spantree-search-help-item-icon">⌘</span>
-              ) : (
-                "Ctrl"
-              )}{" "}
-              + {isMac ? "return" : "Enter"}
-            </code>{" "}
+              {isMac ? <span className="spantree-search-help-item-icon">⌘</span> : 'Ctrl'} +{' '}
+              {isMac ? 'return' : 'Enter'}
+            </code>{' '}
             to Open in New Tab
           </span>
         </div>
@@ -225,7 +203,7 @@ function SearchBar({
   );
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = state => {
   return {
     searchTerms: state.searchTerms,
     options: state.options,

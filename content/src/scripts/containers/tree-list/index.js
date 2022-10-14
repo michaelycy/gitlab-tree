@@ -1,1 +1,1 @@
-export { default } from "./TreeList";
+export { default } from "./tree-list";

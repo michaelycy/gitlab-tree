@@ -12,7 +12,7 @@ const insertCSS = isDisabled => {
   document.querySelector('head').appendChild(darkGitlab);
 };
 
-// eslint-disable-next-line import/prefer-default-export
+
 export const switchTheme = () => {
   const domain = window.location.origin;
   const themeList = JSON.parse(localStorage.getItem(GITLAB_TREE_THEME_LIST)) || {};

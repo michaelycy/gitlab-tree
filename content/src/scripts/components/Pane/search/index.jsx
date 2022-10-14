@@ -6,7 +6,7 @@ import Backdrop from '../../backdrop';
 import SearchBarResult from './result';
 import { getSearchTerms } from '../../../../../../event/src/actions/API';
 import { fetchURLDetails } from '../../../utils/url';
-import useEventListener from '../../../hooks/useEventListener';
+import useEventListener from '../../../hooks/use-event-listener';
 
 import './index.css';
 

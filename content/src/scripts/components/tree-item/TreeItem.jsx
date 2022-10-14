@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useContext } from 'react';
 import classnames from 'classnames';
-import { OptionsContext } from '../../contexts/OptionsContext';
-import { useURLDetails } from '../../hooks/useURLDetails';
+import { OptionsContext } from '../../contexts/options-context';
+import { useURLDetails } from '../../hooks/use-url-details';
 import fileIcons from '../../utils/file-icons';
 
 import './styles.css';

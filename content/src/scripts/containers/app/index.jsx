@@ -7,7 +7,7 @@ import { EXTENSION_ID } from '../../constants';
 import Pane from '../../components/pane';
 import Toggler from '../../components/toggler';
 import { browserKey } from '../../utils/browser';
-import useEventListener from '../../hooks/useEventListener';
+import useEventListener from '../../hooks/use-event-listener';
 import { useVisibleTree } from '../../hooks/use-visible-tree';
 import { openTreeExtension, closeTreeExtension } from './helper';
 // eslint-disable-next-line import/no-cycle
@@ -25,8 +25,6 @@ const App = props => {
   const [tabId, setTabId] = useState();
   const [reloading, setReloading] = useState(true);
   const [firstPageLoad, setFirstPageLoad] = useState(true);
-  // const [showSearchBar, setShowSearchBar] = useState(false);
-
   const shouldVisibleTree = useVisibleTree();
 
   const onToggleOpenedThisTab = useCallback(() => {
@@ -37,9 +35,7 @@ const App = props => {
     tabIdClient.getTabId().then(tab => setTabId(tab));
   }, []);
 
-  useEventListener('popstate', () => {
-    setReloading(true);
-  });
+  useEventListener('popstate', () => setReloading(true));
 
   useEffect(() => {
     if (tabId && props.opened[tabId] && shouldVisibleTree) {
